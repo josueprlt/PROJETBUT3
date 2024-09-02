@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+        <style>
+
+        body {
+            margin: 0
+        }
+
+        h1, p {
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            background-color: gray;
+            padding: 1.5rem 1.5rem;
+        }
+
+        a {
+            text-transform: uppercase;
+            color: white;
+            font-weight: bolder;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: gray;
+            padding: 1.5rem 1.5rem;
+        }
+
+        </style>
+        {% endblock %}
+
+        {% block javascripts %}
+        {% endblock %}
+    </head>
+    <body>
+        <nav>
+            <a href="/index">Home</a>
+            <a href="/legalsmentions">Mentions Légales</a>
+            {% if app.user %}
+                <a href="/logout">Logout</a>
+
+                {% else %}
+                    <a href="/login">Se Connecter</a>
+                    <a href="/register">S'enregistrer</a>
+
+            {% endif %}
+        </nav>
+
+        {% block body %}{% endblock %}
+
+        <footer>
+            <p>Copyright 2024 © - Josué Perrault</p>
+        </footer>
+    </body>
+</html>
