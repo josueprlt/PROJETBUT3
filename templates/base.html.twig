@@ -8,6 +8,7 @@
         <style>
 
         body {
+            height: 75vh;
             margin: 0
         }
 
@@ -42,8 +43,17 @@
     </head>
     <body>
         <nav>
-            <a href="/index">Home</a>
+            <a href="/">Home</a>
             <a href="/legalsmentions">Mentions Légales</a>
+            
+            {% if is_granted('ROLE_ORGANISATEUR') %}
+            <a href="/gestion">Gestion Page</a>
+            {% endif %}
+            
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="/admin">Admin Page</a>
+            {% endif %}
+
             {% if app.user %}
                 <a href="/logout">Logout</a>
 

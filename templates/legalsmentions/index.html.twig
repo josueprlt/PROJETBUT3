@@ -9,6 +9,10 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Mentions Légales</h1>
+    <h1>Mentions Légales : {{ app.request.get('_route') }}</h1>
+
+    {# <p>Vous avez bien accès à cette page car vous possèdez le role ORGANISATEUR</p> #}
+    {# <p>Page accessible à tous ceux authentifiés</p> #}
+    <p>Page accessible à tous le monde</p>
 </div>
 {% endblock %}
