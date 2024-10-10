@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EventController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 1000px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .wrap_li {display: flex; justify-content: space-between; border-bottom: 1px solid black;}
+    .wrap_div {display: flex; justify-content: right; gap: 1rem; width: 327px;}
+    .text_role {color: red;}
+    .imp {background-color: gray; font-weight: bold; color: black;}
+    .btn {background-color: red; color: white;}
+    .txt_priv {color: red;}
+    .txt_pub {color: green;}
+</style>
+
+<div class="example-wrapper">
+    <h1>Evènements : </h1>
+    
+    {# <button class='btn'>
+        <a href='/register'>Ajouter un utilisateur</a>
+    </button> #}
+    <ul>
+
+        <li class="wrap_li imp">
+            <p>Id</p>
+            <p>Date début</p>
+            <p>Date fin</p>
+            <p>Titre</p>
+            <p>Description</p>
+            <p>Visibilité</p>
+            <p>Modif</p>
+        </li>
+        {% for event in events %}
+            <li class="wrap_li">
+                <p>{{ event.id }}</p>
+
+                <p>{{ event.datetimeStart|date("m/d/Y g:ia") }}</p>
+
+                <p>{{ event.datetimeEnd|date("m/d/Y g:ia") }}</p>
+
+                <p>{{ event.titre }}</p>
+                <p>{{ event.description }}</p>
+
+                {% if event.visibility == false %}
+                    <p class='txt_priv'>Privé</p>
+                {% else %}
+                    <p class='txt_pub'>Public</p>
+                {% endif %}
+
+                <button class="btn">
+                    <a href="{{ path('app_event_modification', {'id': event.id}) }}">Modif</a>
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

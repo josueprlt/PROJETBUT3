@@ -28,6 +28,7 @@ class RegistrationController extends AbstractController
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             
             // assign default role
+            $user->setActif(true);
             $user->setRoles(['ROLE_USER']);
 
             $entityManager->persist($user);

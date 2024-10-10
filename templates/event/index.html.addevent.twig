@@ -13,10 +13,18 @@
     .btn {background-color: red; color: white;}
 </style>
 <div class="example-wrapper">
-    <h1>Modif User</h1>
+    <h1>Ajouter un Evènement</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
+    {{ form_errors(addEventForm) }}
+
+    {{ form_start(addEventForm) }}
+        {{ form_row(addEventForm.datetimeStart) }}
+        {{ form_row(addEventForm.datetimeEnd) }}
+        {{ form_row(addEventForm.title) }}
+        {{ form_row(addEventForm.description) }}
+        {{ form_row(addEventForm.visibility) }}
+
+        <button type="submit" class="btn">Add Event</button>
+    {{ form_end(addEventForm) }}
 </div>
 {% endblock %}
