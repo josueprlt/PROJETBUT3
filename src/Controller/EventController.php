@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-use App\Form\RegistrationFormType;
+use App\Form\AddEventFormType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -23,7 +23,7 @@ class EventController extends AbstractController
     {
         $events = $eventRepo->findAll();
 
-        return $this->render('event/index.html.twig', [
+        return $this->render('gestion/index.html.twig', [
             'events' => $events,
             'controller_name' => 'EventController',
         ]);
@@ -33,17 +33,24 @@ class EventController extends AbstractController
     public function addEvent(Request $request, EntityManagerInterface $entityManager): Response
     {
         $event = new Event();
-        $form = $this->createForm(RegistrationFormType::class, $event);
+        $form = $this->createForm(AddEventFormType::class, $event);
         $form->handleRequest($request);
+        $error = "";
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($event);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_event');
+            
+            if ($event->getDatetimeStart() >= $event->getDatetimeEnd()) {
+                $error = "la date de début ne peut pas être supérieur à la date de fin !";
+            } else {
+                $entityManager->persist($event);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('app_event');
+            }
         }
 
         return $this->render('event/index.html.addevent.twig', [
+            'error' => $error,
             'addEventForm' => $form,
         ]);
     }
@@ -52,53 +59,24 @@ class EventController extends AbstractController
     public function userModification(Event $event, Request $request, EntityManagerInterface $entityManager): Response
     {
         // Créez le formulaire
-        $form = $this->createFormBuilder($event)
-            ->add('datetimeStart', DateTimeType::class, [
-                'date_label' => 'Start On',
-            ])
-            ->add('datetimeEnd', DateTimeType::class, [
-                'date_label' => 'End On',
-            ])
-            ->add(
-                'titre', TextType::class,
-                [
-                    'required' => true,
-                    'label' => 'Titre',
-                    'attr' => [
-                        'placeholder' => 'Titre'
-                    ]
-                ]
-            )
-            ->add(
-                'description', TextType::class,
-                [
-                    'required' => true,
-                    'label' => 'Description',
-                    'attr' => [
-                        'placeholder' => 'Description'
-                    ]
-                ]
-            )
-            ->add('visibility', CheckboxType::class, [
-                'label'    => 'Visibilité',
-                'required' => false,
-            ])
-            ->add('valider', SubmitType::class, [
-                'label' => 'Valider',
-            ])
-            ->getForm();
-
+        $form = $this->createForm(AddEventFormType::class, $event);
         $form->handleRequest($request);
+        $error = "";
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $entityManager->persist($event);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_event');
+            
+            if ($event->getDatetimeStart() >= $event->getDatetimeEnd()) {
+                $error = "la date de début ne peut pas être supérieur à la date de fin !";
+            } else {
+                $entityManager->persist($event);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('app_event');
+            }
         }
 
         return $this->render('event/index.html.modifevent.twig', [
+            'error' => $error,
             'form' => $form->createView(),
             'event' => $event,
             'controller_name' => 'EventController',

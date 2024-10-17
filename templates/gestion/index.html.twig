@@ -3,21 +3,53 @@
 {% block title %}Hello GestionController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .btn {background-color: red; color: white;}
-</style>
-
 <div class="example-wrapper">
     <h1>Gestion Page</h1>
     <p>Page réservé aux ORGANISATEURS</p>
 
     <button class='btn'>
-        <a href='/event'>Voir les évènements</a>
-    </button>
-    <button class='btn'>
         <a href='/event/add'>Ajouter un évènement</a>
     </button>
+
+    <h2>Evènements : </h2>
+
+    <table>
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Date Début</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Description</th>
+            <th scope="col">Visibilité</th>
+            <th scope="col">Users</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <th scope="row">{{event.id}}</th>
+                <td>{{ event.datetimeStart|date("m/d/Y g:ia") }}</td>
+                <td>{{ event.datetimeEnd|date("m/d/Y g:ia") }}</td>
+                <td>{{event.titre}}</td>
+                <td>{{event.description}}</td>
+                
+                {% if event.visibility == false %}
+                    <td class='txt_priv'>Privé</td>
+                {% else %}
+                    <td class='txt_pub'>Public</td>
+                {% endif %}
+
+                <td>
+                {% for user in event.users %}
+                    <p>{{user.firstname}} {{user.name}}</p>
+                {% endfor %}
+                </td>
+
+                <td><button class="btn"><a href="{{ path('app_event_modification', {'id': event.id}) }}">Modif</a></button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
