@@ -17,6 +17,9 @@
         .link-forgetpassword { text-decoration: none; color: #64748B; font-size: 14px; text-align: right; }
         .link-forgetpassword:hover { text-decoration: underline; }
         .alert { color: red; }
+		.div-login { color: orange; text-align: center; margin: 0 0 2rem 0; }
+		.deco { background-color: #fc9d03; text-decoration: none; transition: background-color 0.15s ease-in-out; }
+		.deco:hover { background-color: #fcb503; }
 		@media(min-width: 768px) { img { width: 10rem; } .custom-form { width: 50%; } h2 { font-size: 30px; } }
         @media(min-width: 1024px) { .custom-form { width: 515px; } .input-div { width: 384px; } }
 	</style>
@@ -34,39 +37,38 @@
 			{% endif %}
 
 			{% if app.user %}
-				<div class="mb-3">
-					Vous êtes connnecté en tant que
-					{{ app.user.userIdentifier }},
-					<a href="{{ path('app_logout') }}">Déconnexion</a>
+				<div class="div-login">
+					<p>Vous êtes connnecté en tant que {{ app.user.userIdentifier }}</p>
+					<a class="btn deco" href="{{ path('app_logout') }}">Se déconnecter</a>
+				</div>
+			{% else %}
+				<div class='form-div'>
+					<div class='input-div'>
+						<label for="username">Email</label>
+						<input class="custom-input" type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" placeholder="Email" autocomplete="email" required autofocus>
+					</div>
+					<div class='input-div'>
+						<label for="password">Mot de passe</label>
+						<input class="custom-input" type="password" name="_password" id="password" class="form-control" placeholder="Mot de passe" autocomplete="current-password" required>
+						<a href="/recover/account" class='link-forgetpassword'>Mot de passe oublié</a>
+					</div>
+
+					{#Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+																																					See https://symfony.com/doc/current/security/remember_me.html
+																																										
+																																					<div class="checkbox mb-3">
+																																						<input type="checkbox" name="_remember_me" id="_remember_me">
+																																						<label for="_remember_me">Remember me</label>
+																																					</div>#}
+
+					<div
+						class='div-btn'>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+						<button class="btn" type"submit">Se connecter</button>
+						<a class='custom-link' href="/register">Pas encore de compte ? S’inscrire</a>
+					</div>
 				</div>
 			{% endif %}
-
-			<div class='form-div'>
-				<div class='input-div'>
-					<label for="username">Email</label>
-					<input class="custom-input" type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" placeholder="Email" autocomplete="email" required autofocus>
-				</div>
-				<div class='input-div'>
-					<label for="password">Mot de passe</label>
-					<input class="custom-input" type="password" name="_password" id="password" class="form-control" placeholder="Mot de passe" autocomplete="current-password" required>
-                    <a href="/recover/account" class='link-forgetpassword'>Mot de passe oublié</a>
-				</div>
-
-				{#Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-																																				See https://symfony.com/doc/current/security/remember_me.html
-																																									
-																																				<div class="checkbox mb-3">
-																																					<input type="checkbox" name="_remember_me" id="_remember_me">
-																																					<label for="_remember_me">Remember me</label>
-																																				</div>#}
-
-				<div
-					class='div-btn'>
-					{# <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> #}
-					<button class="btn" type"submit">Se connecter</button>
-					<a class='custom-link' href="/register">Pas encore de compte ? S’inscrire</a>
-				</div>
-			</div>
 		</form>
 	</div>
 
