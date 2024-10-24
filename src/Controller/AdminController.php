@@ -86,6 +86,9 @@ class AdminController extends AbstractController
             ])
             ->add('valider', SubmitType::class, [
                 'label' => 'Valider',
+                'attr' => [
+                        'class' => 'btn'
+                    ]
             ])
             ->getForm();
 

@@ -22,6 +22,7 @@
             <th scope="col">Nom</th>
             <th scope="col">Rôles</th>
             <th scope="col">Actif</th>
+            <th scope="col">Modif</th>
             </tr>
         </thead>
         <tbody>
@@ -48,7 +49,7 @@
                 {% else %}
                     <td class="txt_pub">Oui</td>
                 {% endif %}
-                <td><button class="btn"><a href="{{ path('app_admin_modification', {'id': user.id}) }}">Modif</a></button></td>
+                <td><button class="btn"><a href="{{ path('app_admin_modification', {'id': user.id}) }}">Modifier</a></button></td>
             </tr>
             {% endfor %}
         </tbody>
