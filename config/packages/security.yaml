@@ -40,6 +40,7 @@ security:
         - { path: ^/legalsmentions, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/gestion, roles: ROLE_ORGANISATEUR }
+        - { path: ^/email, roles: ROLE_ADMIN }
         # - { path: ^/legalsmentions, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
 

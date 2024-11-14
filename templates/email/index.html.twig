@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EmailController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    h1 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Form label styling */
+        label {
+            font-size: 1rem;
+            color: #666;
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        /* Input field styling */
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #6c63ff;
+            outline: none;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #6c63ff;
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5a54e0;
+        }
+
+        button:focus {
+            outline: none;
+        }
+</style>
+
+<div class="example-wrapper">
+    <h1>Envoyer un email</h1>
+
+    <form action="{{path('send_email')}}" method="post">
+        <label for="fname">Prénom</label>
+        <input type="text" name="fname" id="fname">
+
+        <label for="name">Nom</label>
+        <input type="text" name="name" id="name">
+
+        <label for="mail">Adresse mail</label>
+        <input type="mail" name="mail" id="mail">
+
+        <label for="objet">Objet</label>
+        <input type="text" name="objet" id="objet">
+
+        <label for="msg">Message</label>
+        <textarea name="msg" id="msg"></textarea>
+
+        <button type="submit">Envoyer</button>
+    </form>
+</div>
+{% endblock %}

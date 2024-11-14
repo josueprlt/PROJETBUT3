@@ -75,6 +75,10 @@
                     <a class="link_nav {% if app.request.attributes.get('_route') == 'app_profil' %}active{% endif %}" href="{{ path('app_profil') }}">Profil</a>
                 {% endif %}
 
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="link_nav {% if app.request.attributes.get('_route') == 'app_email' %}active{% endif %}" href="{{ path('app_email') }}">Email</a>
+                {% endif %}
+
                 {% if app.user %}
                     <a class='link_nav' href="/logout">Logout</a>
 
